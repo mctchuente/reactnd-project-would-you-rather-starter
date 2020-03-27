@@ -141,7 +141,9 @@ function mapStateToProps ({authedUser, users, questions}, { id }) {
   return {
     authedUser,
     isAnswered: users[authedUser].answers[id] !== undefined,
-	myVote: (question.optionOne.votes.indexOf(authedUser) > -1) ? 'optionOne' : ((question.optionTwo.votes.indexOf(authedUser) > -1) ? 'optionTwo' : null),
+	myVote: question
+      ? (question.optionOne.votes.indexOf(authedUser) > -1) ? 'optionOne' : ((question.optionTwo.votes.indexOf(authedUser) > -1) ? 'optionTwo' : null)
+      : null,
     question: question
       ? formatQuestionPoll(question, users[question.author], authedUser)
       : null
