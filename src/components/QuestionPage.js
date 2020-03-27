@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import ViewPoll from './ViewPoll'
 
 class QuestionPage extends Component {
   render() {
     const { id } = this.props
-    if (this.props.authedUser === null) {
-      return <Redirect to='/login' />
+    const currentLocation = this.props.location.pathname;
+	if (this.props.authedUser === null) {
+      return <Redirect to={{
+                pathname: '/login',
+                state: {from: currentLocation}
+            }}/>
     }
 	return (
       <div>
@@ -26,4 +30,4 @@ function mapStateToProps ({ authedUser, questions, users }, props) {
   }
 }
 
-export default connect(mapStateToProps)(QuestionPage)
+export default withRouter(connect(mapStateToProps)(QuestionPage))

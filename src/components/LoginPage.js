@@ -36,7 +36,9 @@ class LoginPage extends Component {
 	const optionList = Object.keys(users).map((data, index) => <option key={index} value={users[data].id}>{users[data].name}</option>)
 	
     if (authedUser !== null) {
-      return <Redirect to='/' />
+      let { from } = this.props.location.state || { from: { pathname: '/' } }
+	  //this.props.history.push(from);
+	  return <Redirect to={from} />
     }
 	
 	return (
